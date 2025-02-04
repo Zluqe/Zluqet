@@ -1,4 +1,6 @@
-flask 
-flask-sqlalchemy
-pygments
+flask
+flask_sqlalchemy
 gunicorn
+redis
+pygments
+pymysql

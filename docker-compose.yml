@@ -1,0 +1,25 @@
+version: '3.8'
+services:
+  web:
+    build: .
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: mysql+pymysql://zluqet_user:${MYSQL_PASSWORD}@db/zluqetdb
+
+  db:
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_DATABASE: zluqetdb
+      MYSQL_USER: zluqet_user
+      MYSQL_PASSWORD: securepassword  # Change this for production
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+volumes:
+  mysql_data:
