@@ -1,4 +1,3 @@
-# app.py
 from flask import Flask, render_template, request, redirect, url_for, abort
 from flask_sqlalchemy import SQLAlchemy
 from pygments.lexers import get_lexer_for_mimetype, guess_lexer
@@ -70,7 +69,7 @@ def raw_paste(key):
 
 @app.errorhandler(404)
 def page_not_found(e):
-    return render_template('404.html'), 404
+    return render_template('errors/404.html'), 404
 
 if __name__ == '__main__':
     with app.app_context():

@@ -1,20 +1,28 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Zluqet</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zluqet - New Paste</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <h1>Zluqet</h1>
+    <nav class="navbar">
+        <div class="container">
+            <a href="{{ url_for('index') }}" class="logo">
+                <span>Zluqet</span>
+            </a>
+        </div>
+    </nav>
+
+    <main class="container">
         <form method="post">
-            <textarea name="content" placeholder="Paste your text here..." autofocus></textarea>
+            <textarea name="content" placeholder="// Start typing your code here..." autofocus></textarea>
             <div class="actions">
-                <button type="submit">Save</button>
-                <span class="hint">(Ctrl + Enter to save)</span>
+                <button type="submit">Save Paste</button>
             </div>
         </form>
-    </div>
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    </main>
 </body>
 </html>

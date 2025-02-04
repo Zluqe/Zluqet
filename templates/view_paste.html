@@ -1,23 +1,45 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zluqet - {{ paste.key }}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.0/styles/base16/material-darker.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/base16/material-palenight.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>Zluqet</h1>
-            <div class="links">
-                <span class="language-tag">{{ language }}</span>
-                <a href="{{ url_for('raw_paste', key=paste.key) }}">raw</a>
-                <a href="{{ url_for('index') }}">new</a>
+    <nav class="navbar">
+        <div class="container">
+            <a href="{{ url_for('index') }}" class="logo">
+                <span>Zluqet</span>
+            </a>
+            <div class="nav-links">
+                <a href="{{ url_for('index') }}" class="nav-link">New Paste</a>
+                <a href="{{ url_for('raw_paste', key=paste.key) }}" class="nav-link">Raw</a>
             </div>
         </div>
-        <pre><code class="language-{{ language }}">{{ paste.content }}</code></pre>
-    </div>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.0/highlight.min.js"></script>
+    </nav>
+
+    <main class="container">
+        <div class="paste-header">
+            <div class="paste-meta">
+                <span class="paste-id">Paste ID: {{ paste.key }}</span>
+                <span class="paste-time">Created: {{ paste.created_at.strftime('%Y-%m-%d %H:%M') }}</span>
+            </div>
+            <div class="language-tag">
+                <span>{{ language }}</span>
+            </div>
+        </div>
+
+        <div class="code-container">
+            <pre><code class="language-{{ language }} hljs">{{ paste.content }}</code></pre>
+        </div>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/javascript.min.js"></script>
     <script>hljs.highlightAll();</script>
 </body>
 </html>
