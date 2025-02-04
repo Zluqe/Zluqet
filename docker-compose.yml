@@ -20,6 +20,7 @@ services:
       MYSQL_DATABASE: zluqetdb
       MYSQL_USER: zluqet_user
       MYSQL_PASSWORD: securepassword
+      MYSQL_ROOT_PASSWORD: securepassword
     ports:
       - "3306:3306"
     volumes:
