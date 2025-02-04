@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Zluqet</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Zluqet</h1>
+        <form method="post">
+            <textarea name="content" placeholder="Paste your text here..." autofocus></textarea>
+            <div class="actions">
+                <button type="submit">Save</button>
+                <span class="hint">(Ctrl + Enter to save)</span>
+            </div>
+        </form>
+    </div>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

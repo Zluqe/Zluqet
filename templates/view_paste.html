@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Zluqet - {{ paste.key }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.0/styles/default.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Zluqet</h1>
+            <div class="links">
+                <a href="{{ url_for('raw_paste', key=paste.key) }}">raw</a>
+                <a href="{{ url_for('index') }}">new</a>
+            </div>
+        </div>
+        <pre><code class="plaintext">{{ paste.content }}</code></pre>
+    </div>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</body>
+</html>
