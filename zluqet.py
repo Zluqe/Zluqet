@@ -1,6 +1,8 @@
 # app.py
 from flask import Flask, render_template, request, redirect, url_for, abort
 from flask_sqlalchemy import SQLAlchemy
+from pygments.lexers import get_lexer_for_mimetype, guess_lexer
+from pygments.util import ClassNotFound
 import string
 import random
 from datetime import datetime
@@ -50,7 +52,14 @@ def view_paste(key):
     paste = Paste.query.filter_by(key=key).first()
     if not paste:
         abort(404)
-    return render_template('view_paste.html', paste=paste)
+    
+    try:
+        lexer = guess_lexer(paste.content)
+        language = lexer.aliases[0] if lexer.aliases else 'plaintext'
+    except ClassNotFound:
+        language = 'plaintext'
+    
+    return render_template('view_paste.html', paste=paste, language=language)
 
 @app.route('/raw/<key>')
 def raw_paste(key):
