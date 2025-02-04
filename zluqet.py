@@ -67,6 +67,27 @@ def raw_paste(key):
         abort(404)
     return paste.content, {'Content-Type': 'text/plain'}
 
+@app.route('/edit/<key>', methods=['GET', 'POST'])
+def dupe_paste(key):
+    paste = Paste.query.filter_by(key=key).first()
+    if not paste:
+        abort(404)
+
+    if request.method == 'POST':
+        content = request.form.get('content')
+        if not content:
+            return redirect(url_for('index'))
+
+        new_key = generate_key()
+        new_paste = Paste(content=content, key=new_key)
+        
+        db.session.add(new_paste)
+        db.session.commit()
+        
+        return redirect(url_for('view_paste', key=new_key))
+
+    return render_template('edit_paste.html', paste=paste)
+
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('errors/404.html'), 404

@@ -31,6 +31,7 @@ body {
     padding: 0 1.5rem;
 }
 
+/* Navbar */
 .navbar {
     background-color: var(--surface-color);
     padding: 1rem 0;
@@ -38,10 +39,16 @@ body {
     margin-bottom: 2rem;
 }
 
-.logo {
+.navbar .container {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 0.75rem;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.logo {
     font-size: 1.5rem;
     font-weight: 600;
     text-decoration: none;
@@ -53,39 +60,43 @@ body {
     opacity: 0.8;
 }
 
-.nav-links {
+.nav-buttons {
     display: flex;
-    gap: 1.5rem;
+    gap: 1rem;
+}
+
+/* Buttons (New Paste, Edit, Share) */
+.nav-button {
+    display: flex;
     align-items: center;
-}
-
-.nav-link {
-    color: var(--text-muted);
-    text-decoration: none;
-    font-weight: 500;
+    gap: 0.5rem;
+    background: var(--glass-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
     transition: all 0.2s;
-    position: relative;
 }
 
-.nav-link:hover {
-    color: var(--primary-color);
+.nav-button svg {
+    width: 16px;
+    height: 16px;
+    fill: var(--text-color);
+    transition: fill 0.2s;
 }
 
-.nav-link::after {
-    content: '';
-    position: absolute;
-    bottom: -4px;
-    left: 0;
-    width: 0;
-    height: 2px;
+.nav-button:hover {
     background: var(--primary-color);
-    transition: width 0.3s;
+    border-color: var(--primary-color);
+    color: white;
 }
 
-.nav-link:hover::after {
-    width: 100%;
+.nav-button:hover svg {
+    fill: white;
 }
 
+/* Main Content */
 main {
     padding-top: 6rem;
 }
@@ -129,24 +140,7 @@ code {
     padding: 0;
 }
 
-.share-button {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    background: var(--glass-bg);
-    border: 1px solid var(--border-color);
-    color: var(--text-color);
-    padding: 0.5rem 1rem;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.2s;
-}
-
-.share-button:hover {
-    background: var(--primary-color);
-    border-color: var(--primary-color);
-}
-
+/* Footer */
 .footer {
     margin-top: 4rem;
     padding: 2rem 0;
@@ -166,6 +160,7 @@ code {
     color: var(--primary-color);
 }
 
+/* Textarea */
 textarea {
     width: 100%;
     height: 500px;
@@ -187,6 +182,7 @@ textarea:focus {
     box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
 }
 
+/* Error Page */
 body.error-page {
     display: flex;
     justify-content: center;
@@ -230,10 +226,33 @@ body.error-page {
     opacity: 0.9;
 }
 
+/* Mobile Responsive */
 @media (max-width: 768px) {
     .container {
         max-width: 100%;
         padding: 0 1rem;
+    }
+
+    .navbar {
+        padding: 1rem;
+    }
+
+    .navbar .container {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .nav-buttons {
+        flex-direction: column;
+        gap: 0.75rem;
+        width: 100%;
+        text-align: center;
+    }
+
+    .nav-button {
+        width: 100%;
+        justify-content: center;
     }
 
     .code-container {
@@ -258,7 +277,7 @@ body.error-page {
         padding: 0.4rem;
     }
 
-    .share-button {
+    .nav-button {
         font-size: 0.8rem;
         padding: 0.4rem 0.8rem;
     }

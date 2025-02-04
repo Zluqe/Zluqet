@@ -3,25 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zluqet - New Paste</title>
+    <title>Zluqet - Edit</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
+
     <nav class="navbar">
         <div class="container">
-            <a href="{{ url_for('index') }}" class="logo">
-                <span>Zluqet</span>
-            </a>
+            <a href="{{ url_for('index') }}" class="logo">Zluqet</a>
         </div>
     </nav>
 
     <main class="container">
-        <form method="post">
-            <textarea name="content" placeholder="// Start typing your code here..." autofocus></textarea>
-            <div class="actions">
-                <button type="submit" class="nav-button">Save Paste</button>
-            </div>
+        <form action="{{ url_for('dupe_paste', key=paste.key) }}" method="POST">
+            <textarea name="content">{{ paste.content }}</textarea>
+            <button type="submit" class="nav-button">Save Paste</button>
         </form>
     </main>
 
