@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/base16/material-palenight.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 </head>
 <body>
     <nav class="navbar">
@@ -16,7 +17,12 @@
             </a>
             <div class="nav-links">
                 <a href="{{ url_for('index') }}" class="nav-link">New Paste</a>
-                <a href="{{ url_for('raw_paste', key=paste.key) }}" class="nav-link">Raw</a>
+                <button class="share-button" onclick="copyToClipboard()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M13.5 1a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.499 2.499 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5zm-8.5 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm11 5.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z"/>
+                    </svg>
+                    Share
+                </button>
             </div>
         </div>
     </nav>
@@ -25,7 +31,7 @@
         <div class="paste-header">
             <div class="paste-meta">
                 <span class="paste-id">Paste ID: {{ paste.key }}</span>
-                <span class="paste-time">Created: {{ paste.created_at.strftime('%Y-%m-%d %H:%M') }}</span>
+                <span class="paste-time">Created: {{ paste.created_at.strftime('%b %d, %Y %H:%M') }}</span>
             </div>
             <div class="language-tag">
                 <span>{{ language }}</span>
@@ -37,9 +43,20 @@
         </div>
     </main>
 
+    <footer class="footer">
+        <div class="container">
+            <p>Powered by <a href="https://flask.palletsprojects.com/" target="_blank">Flask</a> • 
+            Syntax highlighting by <a href="https://highlightjs.org/" target="_blank">highlight.js</a></p>
+            <p>© 2023 Zluqet • <a href="/privacy">Privacy</a> • <a href="/terms">Terms</a></p>
+        </div>
+    </footer>
+
+    <!-- FIX: Properly Initialize Highlight.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/javascript.min.js"></script>
-    <script>hljs.highlightAll();</script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            hljs.highlightAll();
+        });
+    </script>
 </body>
 </html>
