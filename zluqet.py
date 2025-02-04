@@ -58,7 +58,9 @@ def view_paste(key):
     except ClassNotFound:
         language = 'plaintext'
     
-    return render_template('view_paste.html', paste=paste, language=language)
+    response = make_response(render_template('view_paste.html', paste=paste, language=language))
+    response.headers['X-Robots-Tag'] = 'noindex, nofollow'
+    return response
 
 @app.route('/raw/<key>')
 def raw_paste(key):
