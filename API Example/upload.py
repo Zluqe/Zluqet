@@ -1,7 +1,7 @@
 import requests
 
-def upload_text_to_pastebin(text):
-    domain = "http://127.0.0.1:5000" # the url for the zluqet instance
+def upload_text_to_zluqet(text):
+    domain = "https://paste.zluqe.org" # the url for the zluqet instance
     api_url = f"{domain}/api/documents"
 
     response = requests.post(api_url, data=text)
@@ -20,7 +20,7 @@ if __name__ == "__main__":
     sample_text = "Text"
     
     try:
-        paste_link = upload_text_to_pastebin(sample_text)
+        paste_link = upload_text_to_zluqet(sample_text)
         print("Uploaded successfully. Link:", paste_link)
     except Exception as e:
         print("An error occurred:", e)
