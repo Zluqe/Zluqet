@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, abort, make_response
+from flask import Flask, render_template, request, redirect, url_for, abort, make_response, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from pygments.lexers import get_lexer_for_mimetype, guess_lexer
 from pygments.util import ClassNotFound
@@ -89,6 +89,44 @@ def dupe_paste(key):
         return redirect(url_for('view_paste', key=new_key))
 
     return render_template('edit_paste.html', paste=paste)
+
+@app.route('/api/documents', methods=['POST'])
+def api_create_paste():
+    text_content = request.get_data(as_text=True)
+    if not text_content:
+        return jsonify({'error': 'No content provided.'}), 400
+
+    max_length = 100000
+    truncated = False
+    if len(text_content) > max_length:
+        text_content = text_content[:max_length - 1]
+        truncated = True
+
+    key = generate_key()
+    new_paste = Paste(content=text_content, key=key)
+    
+    db.session.add(new_paste)
+    db.session.commit()
+    
+    response_data = {'key': key}
+    if truncated:
+        response_data['truncated'] = True
+    return jsonify(response_data), 200
+
+@app.route('/api/documents/<key>', methods=['GET'])
+def api_get_paste(key):
+    """
+    Retrieve a paste by key in JSON format.
+    Returns the paste's key, content, and creation timestamp.
+    """
+    paste = Paste.query.filter_by(key=key).first()
+    if not paste:
+        return jsonify({'error': 'Paste not found.'}), 404
+    return jsonify({
+        'key': paste.key,
+        'content': paste.content,
+        'created_at': paste.created_at.isoformat()
+    })
 
 @app.errorhandler(404)
 def page_not_found(e):
