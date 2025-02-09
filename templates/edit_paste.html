@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zluqet - Edit</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <meta name="robots" content="noindex, nofollow">
+    {% include 'cold/head.html' %}
 </head>
 <body>
 
@@ -20,13 +19,6 @@
             <button type="submit" class="nav-button">Save Paste</button>
         </form>
     </main>
-
-    <footer class="footer">
-        <div class="container">
-            <p>Powered by <a href="https://zluqe.org/" target="_blank">Zluqe</a>
-            <p>© 2025 Zluqe • <a href="https://zluqe.org/privacy-policy">Privacy</a> • <a href="https://zluqe.org/terms-of-service">Terms</a></p>
-        </div>
-    </footer>
-
+    {% include 'cold/footer.html' %}
 </body>
 </html>

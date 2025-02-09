@@ -1,13 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="robots" content="noindex, nofollow">
     <title>Zluqet - {{ paste.key }}</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/base16/material-palenight.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <meta name="robots" content="noindex, nofollow">
+    {% include 'cold/head.html' %}
 </head>
 <body>
     <nav class="navbar">
@@ -62,14 +58,7 @@
             <pre><code class="language-{{ language }} hljs">{{ paste.content }}</code></pre>
         </div>
     </main>
-
-    <footer class="footer">
-        <div class="container">
-            <p>Powered by <a href="https://zluqe.org/" target="_blank">Zluqe</a>
-            <p>© 2025 Zluqe • <a href="https://zluqe.org/privacy-policy">Privacy</a> • <a href="https://zluqe.org/terms-of-service">Terms</a></p>
-        </div>
-    </footer>
-
+    {% include 'cold/footer.html' %}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/all.min.js"></script>    
     <script>
