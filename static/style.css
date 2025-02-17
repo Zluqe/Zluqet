@@ -110,6 +110,7 @@ main {
 .paste-header {
     display: flex;
     align-items: center;
+    justify-content: space-between; 
     padding: 1rem 1.5rem;
     margin-bottom: 1.5rem;
     background: var(--surface-color);
@@ -117,14 +118,40 @@ main {
     border: 1px solid var(--border-color);
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
-}
-
-.paste-header .metadata {
-    font-size: 1rem;
-    color: var(--text-color);
+  }
+  
+  .paste-meta {
     display: flex;
-    gap: 1rem;
-}
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .paste-id {
+    font-weight: 600;
+    font-size: 1rem;
+  }
+  
+  .separator {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+  }
+  
+  .paste-time {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+  }
+  
+  .language-badge {
+    background: var(--primary-color);
+    color: #fff;
+    font-size: 0.9rem;
+    padding: 0.35rem 0.75rem;
+    border-radius: 10px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  }
+  
 
 .code-container {
     background: var(--surface-color);
@@ -286,3 +313,21 @@ body.error-page {
         font-size: 1.5rem;
     }
 }
+
+#share-btn {
+    width: 100px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  @keyframes copied-pulse {
+    0%   { background-color: var(--primary-color); }
+    50%  { background-color: #4ade80; }
+    100% { background-color: var(--primary-color); }
+  }
+
+  .copied-animation {
+    animation: copied-pulse 0.7s ease-in-out;
+  }

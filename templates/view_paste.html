@@ -5,46 +5,106 @@
     <meta name="robots" content="noindex, nofollow">
     {% include 'cold/head.html' %}
 </head>
+
 <body>
     <nav class="navbar">
         <div class="container">
             <a href="{{ url_for('index') }}" class="logo">Zluqet</a>
             <div class="nav-buttons">
-    
                 <!-- New Paste -->
                 <button class="nav-button" onclick="window.location.href='{{ url_for('index') }}'">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-plus" viewBox="0 0 16 16">
-                        <path d="M8 6a.5.5 0 0 1 .5.5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1A.5.5 0 0 1 8 6z"/>
-                        <path d="M14 4.5V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h5.5L14 4.5zm-3-.5a.5.5 0 0 0-.5-.5H9V1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V5h-2V4z"/>
+                    <svg xmlns="http://www.w3.org/2000/svg" 
+                         width="16" height="16" fill="currentColor" 
+                         class="bi bi-file-earmark-plus" viewBox="0 0 16 16">
+                        <path d="M8 6a.5.5 0 0 1 
+                          .5.5v1h1a.5.5 0 0 1 
+                          0 1h-1v1a.5.5 0 0 1-1 
+                          0v-1h-1a.5.5 0 0 1 
+                          0-1h1v-1A.5.5 0 0 1 
+                          8 6z"/>
+                        <path d="M14 4.5V14a2 2 0 0 
+                          1-2 2H4a2 2 0 0 
+                          1-2-2V2a2 2 0 0 
+                          1 2-2h5.5L14 4.5zm-3-.5a.5.5 
+                          0 0 0-.5-.5H9V1H4a1 
+                          1 0 0 0-1 
+                          1v12a1 1 0 0 0 
+                          1 1h8a1 1 0 0 0 
+                          1-1V5h-2V4z"/>
                     </svg>
                     New Paste
                 </button>
-    
                 <!-- Raw Text -->
-                <button class="nav-button" onclick="window.location.href='{{ url_for('raw_paste', key=paste.key) }}'">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-code" viewBox="0 0 16 16">
-                        <path d="M5.854 6.146a.5.5 0 1 0-.708.708L6.293 8 5.146 9.146a.5.5 0 0 0 .708.708l1.5-1.5a.5.5 0 0 0 0-.708l-1.5-1.5z"/>
-                        <path d="M8.146 6.146a.5.5 0 0 1 .708 0l1.5 1.5a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 1 1-.708-.708L9.293 8 8.146 6.854a.5.5 0 0 1 0-.708z"/>
-                        <path d="M14 4.5V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h5.5L14 4.5zm-3-.5a.5.5 0 0 0-.5-.5H9V1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V5h-2V4z"/>
+                <button class="nav-button" 
+                        onclick="window.location.href='{{ url_for('raw_paste', key=paste.key) }}'">
+                    <svg xmlns="http://www.w3.org/2000/svg" 
+                         width="16" height="16" fill="currentColor" 
+                         class="bi bi-file-code" viewBox="0 0 16 16">
+                        <path d="M5.854 6.146a.5.5 
+                          0 1 0-.708.708L6.293 
+                          8 5.146 9.146a.5.5 
+                          0 0 0 .708.708l1.5-1.5a.5.5 
+                          0 0 0 0-.708l-1.5-1.5z"/>
+                        <path d="M8.146 6.146a.5.5 
+                          0 0 1 .708 0l1.5 1.5a.5.5 
+                          0 0 1 0 .708l-1.5 1.5a.5.5 
+                          0 1 1-.708-.708L9.293 
+                          8 8.146 6.854a.5.5 0 0 1 
+                          0-.708z"/>
+                        <path d="M14 4.5V14a2 2 
+                          0 0 1-2 2H4a2 2 0 
+                          0 1-2-2V2a2 2 0 
+                          0 1 2-2h5.5L14 
+                          4.5zm-3-.5a.5.5 
+                          0 0 0-.5-.5H9V1H4a1 
+                          1 0 0 0-1 
+                          1v12a1 1 0 0 0 
+                          1 1h8a1 1 0 0 
+                          0 1-1V5h-2V4z"/>
                     </svg>
                     Raw Text
                 </button>
-                
                 <!-- Edit -->
-                <button class="nav-button" onclick="window.location.href='{{ url_for('dupe_paste', key=paste.key) }}'">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-                        <path d="M15.502 1.94a.5.5 0 0 1 0 .706l-1.71 1.71-2.121-2.12 1.709-1.71a.5.5 0 0 1 .706 0l1.416 1.414z"/>
-                        <path d="M11.75 2.647l2.12 2.122-6.897 6.896a.5.5 0 0 1-.168.106l-2.477.825a.25.25 0 0 1-.316-.316l.825-2.477a.5.5 0 0 1 .106-.168l6.897-6.896z"/>
-                        <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 1 2.5 12h5a.5.5 0 0 1 0 1h-5A.5.5 0 0 0 2 13.5v.5h9a.5.5 0 0 1 0 1H2a1 1 0 0 1-1-1v-1z"/>
-                        <path fill-rule="evenodd" d="M11.5 3a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 11.5 3z"/>
+                <button class="nav-button" 
+                        onclick="window.location.href='{{ url_for('dupe_paste', key=paste.key) }}'">
+                    <svg xmlns="http://www.w3.org/2000/svg" 
+                         width="16" height="16" fill="currentColor" 
+                         class="bi bi-pencil-square" viewBox="0 0 16 16">
+                        <path d="M15.502 1.94a.5.5 
+                          0 0 1 0 .706l-1.71 1.71-2.121-2.12 
+                          1.709-1.71a.5.5 0 0 1 
+                          .706 0l1.416 1.414z"/>
+                        <path d="M11.75 2.647l2.12 
+                          2.122-6.897 6.896a.5.5 
+                          0 0 1-.168.106l-2.477.825a.25.25 
+                          0 0 1-.316-.316l.825-2.477a.5.5 
+                          0 0 1 .106-.168l6.897-6.896z"/>
+                        <path fill-rule="evenodd" d="M1 
+                          13.5A1.5 1.5 0 0 1 2.5 
+                          12h5a.5.5 0 0 1 
+                          0 1h-5A.5.5 0 0 
+                          0 2 13.5v.5h9a.5.5 
+                          0 0 1 0 1H2a1 
+                          1 0 0 1-1-1v-1z"/>
+                        <path fill-rule="evenodd" d="M11.5 
+                          3a.5.5 0 0 1 .5.5v2a.5.5 
+                          0 0 1-1 0v-2A.5.5 
+                          0 0 1 11.5 3z"/>
                     </svg>
                     Edit
                 </button>
-    
                 <!-- Share -->
-                <button class="nav-button" onclick="copyToClipboard()">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-share-fill" viewBox="0 0 16 16">
-                        <path d="M13.5 1a1.5 1.5 0 0 0-1.06 2.56l-7.453 3.72a1.5 1.5 0 1 0 0 2.44l7.453 3.72a1.5 1.5 0 1 0 .606-.792l-7.453-3.72a1.49 1.49 0 0 0 0-.856l7.453-3.72A1.5 1.5 0 0 0 13.5 1z"/>
+                <button id="share-btn" class="nav-button" onclick="copyToClipboard()">
+                    <svg xmlns="http://www.w3.org/2000/svg" 
+                         width="16" height="16" fill="currentColor" 
+                         class="bi bi-share-fill" viewBox="0 0 16 16">
+                        <path d="M13.5 1a1.5 1.5 
+                          0 0 0-1.06 2.56l-7.453 
+                          3.72a1.5 1.5 0 1 0 
+                          0 2.44l7.453 3.72a1.5 
+                          1.5 0 1 0 .606-.792l-7.453-3.72a1.49 
+                          1.49 0 0 0 0-.856l7.453-3.72A1.5 
+                          1.5 0 0 0 13.5 1z"/>
                     </svg>
                     Share
                 </button>
@@ -53,22 +113,44 @@
     </nav>    
     
     <script>
-        function copyToClipboard() {
-            const url = window.location.href;
-            navigator.clipboard.writeText(url).then(() => {
-                alert('Link copied to clipboard!');
-            });
-        }
+      function copyToClipboard() {
+          const shareBtn = document.getElementById('share-btn');
+          const url = window.location.href;
+          navigator.clipboard.writeText(url).then(() => {
+              shareBtn.innerHTML = `
+                Copied!
+              `;
+              shareBtn.classList.add('copied-animation');
+              setTimeout(() => {
+                  shareBtn.classList.remove('copied-animation');
+                  shareBtn.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" 
+                         width="16" height="16" fill="currentColor" 
+                         class="bi bi-share-fill" viewBox="0 0 16 16">
+                      <path d="M13.5 1a1.5 1.5 
+                        0 0 0-1.06 2.56l-7.453 
+                        3.72a1.5 1.5 0 1 0 
+                        0 2.44l7.453 3.72a1.5 1.5 
+                        0 1 0 .606-.792l-7.453-3.72a1.49 
+                        1.49 0 0 0 0-.856l7.453-3.72A1.5 
+                        1.5 0 0 0 13.5 1z"/>
+                    </svg>
+                    Share
+                  `;
+              }, 1000);
+          });
+      }
     </script>
     
     <main class="container">
         <div class="paste-header">
             <div class="paste-meta">
-                <span class="paste-id">Paste ID: {{ paste.key }}</span>
-                <span class="paste-time">Created: {{ paste.created_at.strftime('%b %d, %Y %H:%M') }}</span>
+                <span class="paste-time">
+                  Created: {{ paste.created_at.strftime('%b %d, %Y %H:%M') }}
+                </span>
             </div>
-            <div class="language-tag">
-                <span>{{ language }}</span>
+            <div class="language-badge">
+                Paste ID: {{ paste.key }}
             </div>
         </div>
 
@@ -76,13 +158,14 @@
             <pre><code class="language-{{ language }} hljs">{{ paste.content }}</code></pre>
         </div>
     </main>
+    
     {% include 'cold/footer.html' %}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/all.min.js"></script>    
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            hljs.highlightAll();
-        });
+      document.addEventListener("DOMContentLoaded", function() {
+          hljs.highlightAll();
+      });
     </script>
 </body>
 </html>
