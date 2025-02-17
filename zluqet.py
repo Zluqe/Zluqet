@@ -7,6 +7,8 @@ from pygments.util import ClassNotFound
 import string
 import random
 from datetime import datetime
+import time
+from collections import defaultdict, deque
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///pastes.db'
@@ -14,6 +16,29 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.secret_key = 'zluqet'
 
 db = SQLAlchemy(app)
+
+ip_requests = defaultdict(deque)
+EXEMPT_IPS = {} # Add IPs to this set to exempt them from rate limiting
+REQUESTS_PER_MINUTE = 5 # Total requests allowed per minute
+
+@app.before_request
+def rate_limit():
+    if request.path.startswith('/api/'):
+        client_ip = request.remote_addr
+        
+        if client_ip in EXEMPT_IPS:
+            return
+        
+        now = time.time()
+        timestamps = ip_requests[client_ip]
+        
+        while timestamps and now - timestamps[0] > 60:
+            timestamps.popleft()
+
+        if len(timestamps) >= REQUESTS_PER_MINUTE:
+            return jsonify({'error': 'Too many requests, please slow down.'}), 429
+        
+        timestamps.append(now)
 
 class Paste(db.Model):
     id = db.Column(db.Integer, primary_key=True)
