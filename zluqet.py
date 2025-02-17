@@ -1,6 +1,8 @@
 from flask import Flask, render_template, request, redirect, url_for, abort, make_response, jsonify
 from flask_sqlalchemy import SQLAlchemy
-from pygments.lexers import get_lexer_for_mimetype, guess_lexer
+from pygments import highlight
+from pygments.lexers import guess_lexer, get_lexer_by_name
+from pygments.formatters.html import HtmlFormatter
 from pygments.util import ClassNotFound
 import string
 import random
@@ -54,11 +56,21 @@ def view_paste(key):
     
     try:
         lexer = guess_lexer(paste.content)
-        language = lexer.aliases[0] if lexer.aliases else 'plaintext'
     except ClassNotFound:
-        language = 'plaintext'
+        lexer = get_lexer_by_name("text", stripall=True)
     
-    response = make_response(render_template('view_paste.html', paste=paste, language=language))
+    formatter = HtmlFormatter(style="default")
+    highlighted_code = highlight(paste.content, lexer, formatter)
+    style_defs = formatter.get_style_defs('.highlight')
+
+    response = make_response(
+        render_template(
+            'view_paste.html',
+            paste=paste,
+            highlighted_code=highlighted_code,
+            style_defs=style_defs
+        )
+    )
     response.headers['X-Robots-Tag'] = 'noindex, nofollow'
     return response
 

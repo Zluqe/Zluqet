@@ -23,6 +23,7 @@ body {
     font-family: var(--font-base);
     line-height: 1.6;
     min-height: 100vh;
+    text-align: left;
 }
 
 .container {
@@ -49,76 +50,89 @@ body {
 }
 
 .logo {
-    font-size: 1.5rem;
-    font-weight: 600;
+    font-size: 2rem;
+    font-weight: 700;
     text-decoration: none;
-    color: var(--text-color);
-    transition: opacity 0.2s;
+    color: var(--primary-color); 
+    letter-spacing: 0.5px;
+    transition: opacity 0.2s, text-shadow 0.2s;
+    text-shadow: 0 2px 3px rgba(0, 0, 0, 0.5);
 }
 
 .logo:hover {
-    opacity: 0.8;
+    opacity: 0.9;
+    text-shadow: 0 3px 5px rgba(0, 0, 0, 0.7);
 }
 
 .nav-buttons {
     display: flex;
-    gap: 1rem;
+    gap: 1.2rem;
 }
 
-/* Buttons (New Paste, Edit, Share) */
 .nav-button {
     display: flex;
     align-items: center;
     gap: 0.5rem;
     background: var(--glass-bg);
     border: 1px solid var(--border-color);
-    color: var(--text-color);
-    padding: 0.5rem 1rem;
     border-radius: 8px;
+    color: var(--text-color);
+    padding: 0.6rem 1.2rem;
     cursor: pointer;
-    transition: all 0.2s;
+    transition: background 0.2s, border-color 0.2s, color 0.2s;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
 }
 
 .nav-button svg {
-    width: 16px;
-    height: 16px;
+    width: 20px;
+    height: 20px;
     fill: var(--text-color);
     transition: fill 0.2s;
+    filter: drop-shadow(0 0 1px rgba(255, 255, 255, 0.5));
 }
 
 .nav-button:hover {
     background: var(--primary-color);
     border-color: var(--primary-color);
-    color: white;
+    color: #fff;
 }
 
 .nav-button:hover svg {
-    fill: white;
+    fill: #fff;
 }
 
 /* Main Content */
 main {
-    padding-top: 6rem;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
 }
 
 .paste-header {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    padding: 1rem 1.5rem;
     margin-bottom: 1.5rem;
-    padding: 1rem;
     background: var(--surface-color);
     backdrop-filter: blur(8px);
-    border-radius: 10px;
     border: 1px solid var(--border-color);
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+}
+
+.paste-header .metadata {
+    font-size: 1rem;
+    color: var(--text-color);
+    display: flex;
+    gap: 1rem;
 }
 
 .code-container {
     background: var(--surface-color);
-    border-radius: 6px;
+    border-radius: 8px;
     border: 1px solid var(--border-color);
     overflow: hidden;
     padding: 0.5rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
 }
 
 pre {
@@ -167,13 +181,15 @@ textarea {
     padding: 1.5rem;
     background: var(--surface-color);
     border: 1px solid var(--border-color);
-    border-radius: 12px;
+    border-radius: 8px;
     color: var(--text-color);
     font-family: var(--font-mono);
     font-size: 0.95rem;
     resize: vertical;
     margin: 1rem 0;
-    transition: border-color 0.2s;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    text-align: left;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
 }
 
 textarea:focus {
@@ -214,71 +230,59 @@ body.error-page {
 
 .error-actions a {
     background: var(--primary-color);
-    color: white;
+    color: #fff;
     padding: 0.75rem 1.5rem;
-    border-radius: 6px;
+    border-radius: 8px;
     font-weight: 500;
     text-decoration: none;
     transition: opacity 0.2s;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
 }
 
 .error-actions a:hover {
     opacity: 0.9;
 }
 
-/* Mobile Responsive */
+/* Responsive Tweaks */
 @media (max-width: 768px) {
-    .container {
-        max-width: 100%;
-        padding: 0 1rem;
-    }
-
     .navbar {
-        padding: 1rem;
-    }
-
-    .navbar .container {
-        flex-direction: column;
+        flex-direction: row;
         align-items: center;
-        gap: 1rem;
+        justify-content: space-between;
     }
 
     .nav-buttons {
-        flex-direction: column;
+        flex-wrap: wrap;
         gap: 0.75rem;
-        width: 100%;
-        text-align: center;
     }
 
     .nav-button {
-        width: 100%;
-        justify-content: center;
+        padding: 0.5rem 1rem;
     }
 
-    .code-container {
-        padding: 0.5rem;
-        border-radius: 4px;
-    }
-
-    pre {
-        font-size: 0.85rem;
-        padding: 0.5rem;
-    }
-
-    .footer {
-        font-size: 0.8rem;
-        padding: 1rem 0;
+    .paste-header {
+        flex-direction: column;
+        align-items: flex-start;
     }
 }
 
 @media (max-width: 480px) {
-    pre {
-        font-size: 0.8rem;
-        padding: 0.4rem;
+    .nav-button {
+        font-size: 0.85rem;
+        padding: 0.45rem 0.9rem;
     }
 
-    .nav-button {
+    .nav-button svg {
+        width: 18px;
+        height: 18px;
+    }
+
+    pre {
         font-size: 0.8rem;
-        padding: 0.4rem 0.8rem;
+        padding: 0.5rem;
+    }
+
+    .logo {
+        font-size: 1.5rem;
     }
 }
