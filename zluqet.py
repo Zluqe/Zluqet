@@ -14,8 +14,11 @@ from sqlalchemy import event
 from types import SimpleNamespace 
 from cachetools import LRUCache
 from werkzeug.exceptions import RequestEntityTooLarge
+from werkzeug.middleware.proxy_fix import ProxyFix
 
 app = Flask(__name__)
+app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_host=1)
+
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///pastes.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_EXPIRE_ON_COMMIT'] = False
@@ -107,8 +110,7 @@ def precompute_highlighting(content, key):
     highlighted = highlight(content, lexer, formatter)
     highlight_cache[key] = highlighted
 
-# Maximum allowed characters for a paste
-MAX_LENGTH = 100000
+MAX_LENGTH = 25000
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -122,7 +124,6 @@ def index():
                 f"Your paste exceeds the maximum allowed character limit "
                 f"of {MAX_LENGTH} characters. Please reduce your content before saving."
             )
-            # Re-render the page with the error message and user's content preserved.
             return render_template('index.html', error=error_message, content=content)
         
         key = generate_key()
