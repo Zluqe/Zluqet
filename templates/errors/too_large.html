@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Paste Too Large</title>
+    {% include 'cold/head.html' %}
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="{{ url_for('index') }}" class="logo">
+                <span>Zluqet</span>
+            </a>
+        </div>
+    </nav>
+    <main class="container">
+        <h2 style="color: red;">Error: Paste Too Large</h2>
+        <p>{{ error }}</p>
+        <a href="{{ url_for('index') }}">Return to Paste Editor</a>
+    </main>
+    {% include 'cold/footer.html' %}
+</body>
+</html>
