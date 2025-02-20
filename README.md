@@ -18,13 +18,13 @@ docker run -d -p 5000:5000 -v zluqet:/app/instance ghcr.io/zluqe/zluqet:latest
 
 # How to Update
 ```bash
-docker pull ghcr.io/zluqe/zluqet:latest
-```
-```bash
 docker stop $(docker ps -q --filter ancestor=ghcr.io/zluqe/zluqet:latest)
 ```
 ```bash
 docker rm $(docker ps -aq --filter ancestor=ghcr.io/zluqe/zluqet:latest)
+```
+```bash
+docker pull ghcr.io/zluqe/zluqet:latest
 ```
 ```bash
 docker run -d -p 5000:5000 -v zluqet:/app/instance ghcr.io/zluqe/zluqet:latest
