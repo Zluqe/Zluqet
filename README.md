@@ -35,6 +35,9 @@ docker run -d -p 5000:5000 -v zluqet:/app/instance ghcr.io/zluqe/zluqet:latest
 
 # How to install Zluqet CLI (WIP)
 ```bash
+curl -O https://github.com/Zluqe/Zluqet/raw/refs/heads/main/client/install.sh
+```
+```bash
 chmod +x install.sh
 ```
 ```bash
