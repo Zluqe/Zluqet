@@ -24,6 +24,9 @@ docker stop $(docker ps -q --filter ancestor=ghcr.io/zluqe/zluqet:latest)
 docker rm $(docker ps -aq --filter ancestor=ghcr.io/zluqe/zluqet:latest)
 ```
 ```bash
+docker rmi ghcr.io/zluqe/zluqet:latest
+```
+```bash
 docker pull ghcr.io/zluqe/zluqet:latest
 ```
 ```bash
