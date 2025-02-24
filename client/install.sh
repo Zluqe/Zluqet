@@ -4,8 +4,9 @@ set -e
 
 INSTALL_PATH="/usr/local/bin/zluqet"
 
-# Define the content of the zluqet script
-read -r -d '' ZLUQET_SCRIPT <<'EOF'
+tmpfile=$(mktemp) || { echo "Failed to create a temporary file."; exit 1; }
+
+cat << 'EOF' > "$tmpfile"
 #!/bin/bash
 # Usage: zluqet --text "<text>" OR zluqet --file <file_location>
 
@@ -80,17 +81,22 @@ else
 fi
 EOF
 
-# Create a temporary file
-tmpfile=$(mktemp)
-echo "$ZLUQET_SCRIPT" > "$tmpfile"
 chmod +x "$tmpfile"
 
 echo "Installing zluqet to $INSTALL_PATH..."
-# Copy the script to /usr/local/bin
 if [ "$EUID" -ne 0 ]; then
-    sudo cp "$tmpfile" "$INSTALL_PATH"
+    if command -v sudo &> /dev/null; then
+        sudo cp "$tmpfile" "$INSTALL_PATH" || { echo "Failed to copy script to $INSTALL_PATH"; exit 1; }
+        sudo chmod 755 "$INSTALL_PATH"
+        sudo chown $USER:$USER "$INSTALL_PATH"
+    else
+        echo "Error: You need to run this script as root or install sudo."
+        exit 1
+    fi
 else
-    cp "$tmpfile" "$INSTALL_PATH"
+    cp "$tmpfile" "$INSTALL_PATH" || { echo "Failed to copy script to $INSTALL_PATH"; exit 1; }
+    chmod 755 "$INSTALL_PATH"
+    chown $USER:$USER "$INSTALL_PATH"
 fi
 
 rm "$tmpfile"
