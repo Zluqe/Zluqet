@@ -1,4 +1,4 @@
-instance/pastes.db
 /bot-env
-instance/pastes.db-wal
-instance/pastes.db-shm
+instance/*
+node_modules/
+instance/

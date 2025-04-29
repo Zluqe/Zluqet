@@ -1,6 +1,0 @@
-flask 
-flask-sqlalchemy
-pygments
-gunicorn
-pymysql
-cachetools

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Edit Paste</title>
+  <meta name="robots" content="noindex, nofollow">
+  <%- include('cold/head') %>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container">
+      <a href="/" class="logo">Zluqet</a>
+    </div>
+  </nav>
+
+  <main class="container">
+    <form action="/edit/<%= paste.key %>" method="POST">
+      <textarea name="content" required><%= paste.content %></textarea>
+      <button type="submit" class="nav-button">Save Paste</button>
+    </form>
+  </main>
+
+  <%- include('cold/footer') %>
+</body>
+</html>

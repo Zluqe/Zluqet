@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Zluqet - <%= paste.key %></title>
+  <meta name="robots" content="noindex, nofollow">
+  <%- include('cold/head') %>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container">
+      <a href="/" class="logo">Zluqet</a>
+      <div class="nav-buttons">
+        <!-- New Paste -->
+        <button class="nav-button" onclick="window.location.href='/'">
+          <!-- svg... -->
+          New Paste
+        </button>
+        <!-- Raw Text -->
+        <button class="nav-button" onclick="window.location.href='/raw/<%= paste.key %>'">
+          <!-- svg... -->
+          Raw Text
+        </button>
+        <!-- Edit -->
+        <button class="nav-button" onclick="window.location.href='/edit/<%= paste.key %>'">
+          <!-- svg... -->
+          Edit
+        </button>
+        <!-- Share -->
+        <button id="share-btn" class="nav-button" onclick="copyToClipboard()">
+          <!-- svg... -->
+          Share
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <script>
+    function copyToClipboard() {
+      const btn = document.getElementById('share-btn');
+      navigator.clipboard.writeText(window.location.href).then(() => {
+        btn.textContent = 'Copied!';
+        btn.classList.add('copied-animation');
+        setTimeout(() => {
+          btn.classList.remove('copied-animation');
+          btn.innerHTML = `<!-- svg... --> Share`;
+        }, 1000);
+      });
+    }
+  </script>
+
+  <main class="container">
+    <div class="paste-header">
+      <div class="paste-meta">
+        <span class="paste-time">Created: <%= formattedDate %></span>
+      </div>
+      <div class="language-badge">Paste ID: <%= paste.key %></div>
+    </div>
+
+    <div class="code-container">
+      <pre><code class="hljs"><%- paste.content %></code></pre>
+    </div>
+  </main>
+
+  <%- include('cold/footer') %>
+
+  <!-- Highlight.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/all.min.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => hljs.highlightAll());
+  </script>
+</body>
+</html>

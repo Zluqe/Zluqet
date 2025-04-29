@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>New Paste</title>
+  <%- include('cold/head') %>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container">
+      <a href="/" class="logo"><span>Zluqet</span></a>
+    </div>
+  </nav>
+
+  <main class="container">
+    <form method="POST" action="/">
+      <textarea
+        name="content"
+        placeholder="// Start typing your code here..."
+        autofocus
+        required
+      ><%= content %></textarea>
+      <div class="actions">
+        <button type="submit" class="nav-button">Save Paste</button>
+      </div>
+    </form>
+  </main>
+
+  <%- include('cold/footer') %>
+</body>
+</html>
