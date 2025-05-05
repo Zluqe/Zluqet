@@ -14,7 +14,12 @@ const { redactIPs } = require('../utils/ipScanner');
 const router = express.Router();
 
 router.post('/documents', express.text({ type: '*/*' }), async (req, res) => {
-  const text_content = req.body;
+  let text_content = req.body;
+  if (Buffer.isBuffer(text_content)) {
+    text_content = text_content.toString('utf8');
+  } else if (typeof text_content !== 'string') {
+    text_content = JSON.stringify(text_content, null, 2);
+  }
 
   if (!text_content) {
     return res.status(400).json({ error: 'No content provided.' });
