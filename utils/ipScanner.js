@@ -7,6 +7,7 @@
 const net = require('net');
 
 function scanForIPs(text) {
+  text = typeof text === 'string' ? text : String(text);
   return Array.from(new Set(
     text
       .split(/\s+/)
