@@ -9,4 +9,4 @@ COPY . .
 
 EXPOSE 5000
 
-CMD ["node", "zluqet.js"]
+CMD ["node", "server.js"]
