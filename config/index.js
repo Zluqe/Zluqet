@@ -7,7 +7,7 @@
 const path = require('path');
 
 module.exports = {
-  PORT: process.env.PORT || 3000, // Only edit if you exposed the port in the dockerfile or hosting w/o docker.
+  PORT: process.env.PORT || 5000, // Only edit if you exposed the port in the dockerfile or hosting w/o docker.
   DB_TYPE: process.env.DB_TYPE || 'sqlite', // 'sqlite' or 'mysql' or 'postgres'
   DB_STORAGE: path.join(__dirname, '../instance/pastes.db'),
   DB_HOST: process.env.DB_HOST || 'localhost',
