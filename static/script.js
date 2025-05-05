@@ -1,3 +1,9 @@
+// =====================================
+// Keyboard
+// Created by Person0z
+// Copyright (c) 2025 Zluqe
+// =====================================
+
 document.addEventListener('DOMContentLoaded', function() {
     const textarea = document.querySelector('textarea');
     

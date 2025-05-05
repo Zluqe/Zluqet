@@ -1,4 +1,3 @@
-/bot-env
-instance/*
 node_modules/
 instance/
+.DS_Store

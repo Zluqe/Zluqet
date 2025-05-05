@@ -1,3 +1,9 @@
+// =====================================
+// API Example for Zluqet (JS)
+// Created by Person0z
+// Copyright (c) 2025 Zluqe
+// =====================================
+
 const uploadTextToZluqet = async (text) => {
     const domain = "https://paste.zluqe.org"; // The URL for the Zluqet instance
     const apiUrl = `${domain}/api/documents`;

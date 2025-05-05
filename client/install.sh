@@ -1,104 +1,109 @@
 #!/bin/bash
+# =====================================
+# Zluqet CLI Installer
+# Created by Person0z
+# Copyright (c) 2025 Zluqe
+# ===================================
 
-set -e
+# Zluqet CLI Installer
+set -euo pipefail
 
 INSTALL_PATH="/usr/local/bin/zluqet"
+TMPFILE=$(mktemp) || { echo "Failed to create a temporary file."; exit 1; }
+trap "rm -f $TMPFILE" EXIT
 
-tmpfile=$(mktemp) || { echo "Failed to create a temporary file."; exit 1; }
-
-cat << 'EOF' > "$tmpfile"
+cat << 'EOF' > "$TMPFILE"
 #!/bin/bash
-# Usage: zluqet --text "<text>" OR zluqet --file <file_location>
+# Zluqet CLI: Upload text or file contents to a Zluqet server
+# Usage:
+#   zluqet --text "your text here"
+#   zluqet --file /path/to/file
 
-# Function to print usage information
 usage() {
-    echo "Usage: $0 --text \"<text>\" OR $0 --file <file_location>"
+    echo "Usage:"
+    echo "  zluqet --text \"<text>\""
+    echo "  zluqet --file <file_path>"
+    echo "  zluqet --help"
     exit 1
 }
 
-# Check if at least two arguments are provided
-if [ "$#" -lt 2 ]; then
+if [ $# -eq 0 ]; then
     usage
 fi
 
-# Parse command-line arguments
-while [[ "$#" -gt 0 ]]; do
+MODE=""
+TEXT=""
+DOMAIN="https://paste.zluqe.org"
+
+while [[ $# -gt 0 ]]; do
     case "$1" in
         --text)
-            mode="text"
+            MODE="text"
             shift
-            text="$1"
+            TEXT="$1"
             ;;
         --file)
-            mode="file"
+            MODE="file"
             shift
-            file="$1"
+            if [ ! -f "$1" ]; then
+                echo "File not found: $1"
+                exit 1
+            fi
+            TEXT=$(<"$1")
+            ;;
+        --help|-h)
+            usage
             ;;
         *)
-            echo "Unknown parameter: $1"
+            echo "Unknown argument: $1"
             usage
             ;;
     esac
     shift
 done
 
-# If --file was used, read its content
-if [ "$mode" == "file" ]; then
-    if [ ! -f "$file" ]; then
-        echo "File not found: $file"
-        exit 1
-    fi
-    text=$(cat "$file")
+if [ -z "$TEXT" ]; then
+    echo "No content provided."
+    exit 1
 fi
 
-# Define the domain for zluqet
-domain="https://paste.zluqe.org"
+RESPONSE=$(echo -n "$TEXT" | curl -s -w "\n%{http_code}" -X POST --data-binary @- "$DOMAIN/api/documents")
+HTTP_CODE=$(echo "$RESPONSE" | tail -n1)
+BODY=$(echo "$RESPONSE" | sed '$d')
 
-# Use curl to POST the text
-response=$(curl -s -w "\n%{http_code}" -X POST -d "$text" "$domain/api/documents")
-http_code=$(echo "$response" | tail -n1)
-body=$(echo "$response" | sed '$d')
-
-if [ "$http_code" -eq 200 ]; then
-    # Try extracting the "key" from the JSON response using jq if available
+if [ "$HTTP_CODE" = "200" ]; then
     if command -v jq &> /dev/null; then
-        key=$(echo "$body" | jq -r '.key')
+        KEY=$(echo "$BODY" | jq -r '.key')
     else
-        # Fallback extraction using sed
-        key=$(echo "$body" | sed -n 's/.*"key":[[:space:]]*"\([^"]*\)".*/\1/p')
+        KEY=$(echo "$BODY" | sed -n 's/.*"key":[[:space:]]*"\([^"]*\)".*/\1/p')
     fi
-
-    if [ -n "$key" ]; then
-        echo "Uploaded successfully. Link: $domain/$key"
+    if [ -n "$KEY" ]; then
+        echo "Uploaded successfully: $DOMAIN/$KEY"
     else
-        echo "Error: No paste key returned in the response."
+        echo "Upload succeeded but no key was found in the response."
         exit 1
     fi
 else
-    echo "Failed to upload text: HTTP $http_code"
-    echo "$body"
+    echo "Upload failed with HTTP $HTTP_CODE"
+    echo "$BODY"
     exit 1
 fi
 EOF
 
-chmod +x "$tmpfile"
+chmod +x "$TMPFILE"
 
 echo "Installing zluqet to $INSTALL_PATH..."
 if [ "$EUID" -ne 0 ]; then
     if command -v sudo &> /dev/null; then
-        sudo cp "$tmpfile" "$INSTALL_PATH" || { echo "Failed to copy script to $INSTALL_PATH"; exit 1; }
+        sudo cp "$TMPFILE" "$INSTALL_PATH"
         sudo chmod 755 "$INSTALL_PATH"
-        sudo chown $USER:$USER "$INSTALL_PATH"
     else
-        echo "Error: You need to run this script as root or install sudo."
+        echo "Error: please run as root or install sudo."
         exit 1
     fi
 else
-    cp "$tmpfile" "$INSTALL_PATH" || { echo "Failed to copy script to $INSTALL_PATH"; exit 1; }
+    cp "$TMPFILE" "$INSTALL_PATH"
     chmod 755 "$INSTALL_PATH"
-    chown $USER:$USER "$INSTALL_PATH"
 fi
 
-rm "$tmpfile"
-
-echo "Installation complete! You can now run 'zluqet' from the terminal."
+echo "Installation complete. You can now use 'zluqet' from the terminal."

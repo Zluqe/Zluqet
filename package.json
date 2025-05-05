@@ -5,6 +5,9 @@
     "express": "^5.1.0",
     "highlight.js": "^11.11.1",
     "lru-cache": "^11.1.0",
+    "mysql2": "^3.14.1",
+    "pg": "^8.15.6",
+    "semver": "^7.7.1",
     "sequelize": "^6.37.7",
     "sqlite3": "^5.1.7"
   }

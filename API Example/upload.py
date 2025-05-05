@@ -1,3 +1,9 @@
+# =====================================
+# API Example for Zluqet (JS)
+# Created by Person0z
+# Copyright (c) 2025 Zluqe
+# ===================================
+
 import requests
 
 def upload_text_to_zluqet(text):
