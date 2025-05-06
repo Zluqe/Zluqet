@@ -278,6 +278,28 @@ body.error-page {
     opacity: 0.9;
 }
 
+.alert-error {
+    background-color: #dc3545;   
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    border-radius: 0.25rem;
+    margin-bottom: 1rem;
+  }
+  
+  .alert-error__icon {
+    flex-shrink: 0;
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-right: 0.75rem;
+  }
+  
+  .alert-error__message {
+    font-size: 1rem;
+    line-height: 1.4;
+  }
+
 /* Scrollbar */
 /* Adapted from: https://codepen.io/GhostRider/pen/oNvoNv */
 .scrollbar {

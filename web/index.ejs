@@ -20,6 +20,7 @@
   </nav>
 
   <main class="container">
+    <%- include('cold/error_large', { error: error }) %>
     <form method="POST" action="/">
       <textarea
         name="content"
