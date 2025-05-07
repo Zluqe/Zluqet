@@ -26,7 +26,7 @@ app.use(bodyParser.text({ type: 'text/plain', limit: '1mb' }));
 app.use(bodyParser.json({ limit: '1mb' }));
 
 app.use('/api', rateLimiter);
-app.use('/', webRoutes);
+app.use('/', rateLimiter, webRoutes);
 app.use('/api', apiRoutes);
 
 app.use((req, res) => {
