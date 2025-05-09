@@ -4,9 +4,9 @@ services:
     container_name: zluqet-db
     restart: unless-stopped
     environment:
-      MARIADB_DATABASE:     zluqet
-      MARIADB_USER:         user
-      MARIADB_PASSWORD:     password
+      MARIADB_DATABASE:      zluqet
+      MARIADB_USER:          user
+      MARIADB_PASSWORD:      password
       MARIADB_ROOT_PASSWORD: password
     volumes:
       - db_data:/var/lib/mysql
