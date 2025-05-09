@@ -1,9 +1,7 @@
-version: "3.8"
-
 services:
   db:
     image: mariadb:latest
-    container_name: zluqe-db
+    container_name: zluqet-db
     restart: unless-stopped
     environment:
       MARIADB_DATABASE:     zluqet
